@@ -8,7 +8,7 @@ from sqlalchemy.orm import declarative_base
 
 config = dotenv_values()
 # Database URL (replace with your actual credentials)
-database_path = config['DATABASE_URL']
+database_path = database_path = os.environ.get('DATABASE_URL')
 
 # Create a new SQLAlchemy engine instance
 engine = create_engine(database_path, echo=True)
