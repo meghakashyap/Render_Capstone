@@ -8,9 +8,10 @@ from urllib.request import urlopen
 
 
 
-AUTH0_DOMAIN = "dev-i8oncf4wd4tahi6o.us.auth0.com"
-ALGORITHMS = ["RS256"]
-API_AUDIENCE = "capstone"
+AUTH0_DOMAIN = os.environ.get("auth0_domain")
+ALGORITHMS = os.environ.get("algorithms")
+API_AUDIENCE = os.environ.get("api_audience")
+
 
 
 
