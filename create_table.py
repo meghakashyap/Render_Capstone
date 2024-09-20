@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text, Numeric, Boolean, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import dotenv_values
 import os
+from sqlalchemy.orm import declarative_base
 
 
 config = dotenv_values()
