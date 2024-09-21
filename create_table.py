@@ -42,11 +42,12 @@ class Actor(db.Model):
 
 
 # Push the app context
-with app.app_context():
-    # Check if the 'movie' table exists
-    inspector = inspect(db.engine)
-    if not inspector.has_table("movie") or not inspector.has_table("actor"):
-        db.create_all()  # Create tables that don't exist yet
+def create_tables():
+    with app.app_context():
+        # Check if the 'movie' table exists
+        inspector = inspect(db.engine)
+        if not inspector.has_table("movie") or not inspector.has_table("actor"):
+            db.create_all()  # Create tables that don't exist yet
 
 
 # Create all tables
