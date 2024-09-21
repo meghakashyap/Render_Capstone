@@ -7,7 +7,7 @@ from api import app
 from models import db, app
 from sqlalchemy import inspect
 
-inspector = inspect(db.engine)
+
 
 
 
@@ -19,13 +19,6 @@ database_path = database_path = os.environ.get('DATABASE_URL')
 
 # Initialize SQLAlchemy
 # db = SQLAlchemy()
-
-# Push the app context
-with app.app_context():
-    # Check if the 'movie' table exists
-    inspector = inspect(db.engine)
-    if not inspector.has_table("movie") or not inspector.has_table("actor"):
-        db.create_all()  # Create tables that don't exist yet
 
 # Define the  Movie model
 class Movie(db.Model):
@@ -44,8 +37,15 @@ class Actor(db.Model):
     name = db.Column(db.String)
     age = db.Column(db.Integer)
     gender = db.Column(db.String)
-    
-    
+
+
+# Push the app context
+with app.app_context():
+    # Check if the 'movie' table exists
+    inspector = inspect(db.engine)
+    if not inspector.has_table("movie") or not inspector.has_table("actor"):
+        db.create_all()  # Create tables that don't exist yet
+
 
 # Create all tables
 # def create_tables():
