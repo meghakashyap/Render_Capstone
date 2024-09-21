@@ -5,6 +5,10 @@ import os
 from sqlalchemy.orm import declarative_base
 from api import app
 from models import db, app
+from sqlalchemy import inspect
+
+inspector = inspect(db.engine)
+
 
 
 config = dotenv_values()
@@ -21,6 +25,7 @@ database_path = database_path = os.environ.get('DATABASE_URL')
 # Define the  Movie model
 class Movie(db.Model):
     __tablename__ = "movie"
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     release_date = db.Column(db.DateTime)
@@ -29,6 +34,7 @@ class Movie(db.Model):
 # Define the Actor model
 class Actor(db.Model):
     __tablename__ = "actor"
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key =True)
     name = db.Column(db.String)
     age = db.Column(db.Integer)
@@ -38,7 +44,9 @@ class Actor(db.Model):
 
 # Create all tables
 def create_tables():
-    db.create_all()
+    if not inspector.has_table("movie") or not inspector.has_table("actor"):
+        with app.app_context():
+            db.create_all()
     print("Tables created")
 
 # Insert sample data
