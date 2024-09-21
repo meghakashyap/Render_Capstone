@@ -3,6 +3,7 @@ import json
 from flask import abort, app, request
 from jose import jwt
 from urllib.request import urlopen
+import os
 
 # from starter_code.backend.src.database.models import Drink
 
