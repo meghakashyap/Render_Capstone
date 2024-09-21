@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import dotenv_values
 import os
 from sqlalchemy.orm import declarative_base
+from api import app
 
 
 config = dotenv_values()
