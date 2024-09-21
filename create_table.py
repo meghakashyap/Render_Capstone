@@ -10,7 +10,7 @@ from models import db, app
 config = dotenv_values()
 # Database URL (replace with your actual credentials)
 database_path = database_path = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Initialize SQLAlchemy
