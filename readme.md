@@ -50,6 +50,8 @@ GET /actors and /movies
 DELETE /actors/ and /movies/
 POST /actors and /movies and
 PATCH /actors/ and /movies/
+/ - Its a home page
+/home - will list all the movies without any permission
 
 
 GET /actors: Lists all actors
