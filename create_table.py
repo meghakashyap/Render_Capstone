@@ -20,7 +20,12 @@ database_path = database_path = os.environ.get('DATABASE_URL')
 # Initialize SQLAlchemy
 # db = SQLAlchemy()
 
-
+# Push the app context
+with app.app_context():
+    # Check if the 'movie' table exists
+    inspector = inspect(db.engine)
+    if not inspector.has_table("movie") or not inspector.has_table("actor"):
+        db.create_all()  # Create tables that don't exist yet
 
 # Define the  Movie model
 class Movie(db.Model):
@@ -43,11 +48,11 @@ class Actor(db.Model):
     
 
 # Create all tables
-def create_tables():
-    if not inspector.has_table("movie") or not inspector.has_table("actor"):
-        with app.app_context():
-            db.create_all()
-    print("Tables created")
+# def create_tables():
+#     if not inspector.has_table("movie") or not inspector.has_table("actor"):
+#         with app.app_context():
+#             db.create_all()
+#     print("Tables created")
 
 # Insert sample data
 def insert_data():
