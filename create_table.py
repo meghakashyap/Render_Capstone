@@ -1,5 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text, Numeric, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import dotenv_values
 import os
@@ -9,12 +8,7 @@ from sqlalchemy.orm import declarative_base
 config = dotenv_values()
 # Database URL (replace with your actual credentials)
 database_path = database_path = os.environ.get('DATABASE_URL')
-
-# Create a new SQLAlchemy engine instance
-engine = create_engine(database_path, echo=True)
-
-# Base class for declarative models
-Base = declarative_base()
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Initialize SQLAlchemy
@@ -40,21 +34,19 @@ class Actor(db.Model):
 
 # Create all tables
 def create_tables():
-    Base.metadata.create_all(engine)
+    db.create_all()
     print("Tables created")
 
 # Insert sample data
 def insert_data():
-    Session = sessionmaker(bind=engine)
-    session = Session()
     
     # Create Movie
     m1 = Movie(title="Red Notice", release_date="2021-02-02T14:30:00")
     m2 = Movie(title="Harry Potter", release_date="2001-02-02T14:30:00")
     
     # Add Moie to the session
-    session.add_all([m1, m2])
-    session.commit()
+    db.session.add_all([m1, m2])
+    db.session.commit()
 
     # Create  Actors
     a1 = Actor(name="Sonam Kapoor", age=40, gender="female")
@@ -62,11 +54,12 @@ def insert_data():
     a3 = Actor(name="Tom Cruise", age=40, gender="male")
     
     # Add menus to the session
-    session.add_all([a1, a2, a3])
-    session.commit()
+    db.session.add_all([a1, a2, a3])
+    db.session.commit()
 
     print("Data inserted")
 
 if __name__ == '__main__':
-    create_tables()
-    insert_data()
+    with app.app_context():
+        create_tables()
+        insert_data()
