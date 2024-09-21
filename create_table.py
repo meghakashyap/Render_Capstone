@@ -4,6 +4,7 @@ from dotenv import dotenv_values
 import os
 from sqlalchemy.orm import declarative_base
 from api import app
+from models import db, app
 
 
 config = dotenv_values()
@@ -13,9 +14,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Initialize SQLAlchemy
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
-db.init_app(app)
+
 
 # Define the  Movie model
 class Movie(db.Model):
