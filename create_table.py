@@ -15,6 +15,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize SQLAlchemy
 db = SQLAlchemy()
 
+db.init_app(app)
+
 # Define the  Movie model
 class Movie(db.Model):
     __tablename__ = "movie"
