@@ -269,4 +269,6 @@ def auth_error(e):
     )
     
 if __name__ == "__main__":
-    app.run( debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Use the PORT environment variable, default to 5000 if not set
+    app.run(host='0.0.0.0', port=port)
+    # app.run( debug=True)
